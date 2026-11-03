@@ -1,0 +1,73 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Rajdhani:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: 'Rajdhani', sans-serif;
+  color: #f5f5f5;
+  background: #101010;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, #252525, transparent 40%),
+    linear-gradient(135deg, #090909, #191919 60%, #080808);
+  color: #f5f5f5;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 17px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Russo One', sans-serif;
+  color: #ffe600;
+  text-shadow:
+    3px 3px 0 #e32626,
+    5px 5px 0 #087f83,
+    7px 7px 12px rgba(0, 0, 0, 0.8);
+}
+
+p, label, span, td, th {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+a {
+  color: #ffe600;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #00e5df;
+}
+
+button {
+  font-family: 'Russo One', sans-serif;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+::selection {
+  background: #ffe600;
+  color: #111;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffe600;
+  border-radius: 10px;
+}
