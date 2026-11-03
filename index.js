@@ -1,6 +1,8 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+
 const routes = require('./routes/api');
 const productRoutes = require('./routes/productRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
@@ -41,13 +43,14 @@ mongoose.connect(process.env.MONGO_DB_URI)
     .then(() => console.log('Database connected successfully'))
     .catch(err => console.log('Database error:', err));
 
-// API routes
-app.get('/', (req, res) => {
+// Health check
+app.get('/api/health', (req, res) => {
     res.json({
         message: 'SmartBiz ERP Backend is running!'
     });
 });
 
+// API routes
 app.use('/api/products', productRoutes);
 app.use('/api', routes);
 app.use('/api/suppliers', supplierRoutes);
@@ -56,6 +59,32 @@ app.use('/api/purchases', purchaseRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/production', productionRoutes);
 app.use('/api/reports', reportRoutes);
+
+// Serve React frontend
+const frontendPath = path.join(__dirname, 'client', 'dist');
+
+app.use(express.static(frontendPath));
+
+// React Router fallback
+app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api/')) {
+        return res.sendFile(
+            path.join(frontendPath, 'index.html'),
+            (err) => {
+                if (err) next(err);
+            }
+        );
+    }
+
+    next();
+});
+
+// 404 handler for unknown API routes
+app.use('/api', (req, res) => {
+    res.status(404).json({
+        message: 'API endpoint not found'
+    });
+});
 
 // Error handler
 app.use((err, req, res, next) => {
